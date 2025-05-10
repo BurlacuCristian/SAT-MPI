@@ -1,6 +1,4 @@
-# SAT-MPI: Resolution, DP & DPLL in Python  
-Minimal, self-contained implementations of three classic SAT-solving algorithms with verbose trace mode.  
+# SAT-MPI – tiny Python SAT solver
 
-```bash
-git clone https://github.com/BurlacuCristian/SAT-MPI.git
-python SAT-MPI/satsolver.py      # run built-in demo
+Three textbook algorithms (Resolution, Davis-Putnam, DPLL) in one file.
+
