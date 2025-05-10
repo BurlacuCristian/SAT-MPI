@@ -1,0 +1,108 @@
+=== Detailed Resolution Example ===
+Formula: (¬x2 ∨ x1) � (x2 ∨ x3) ∧ (¬x3 ∨ ¬x1)
+Initial clauses: (¬x2 ∨ x1) ∧ (x2 ∨ x3) ∧ (¬x3 ∨ ¬x1)
+
+Resolution Round 1:
+ Resolvant of {1, -2} and {2, 3} on literal -2: {1, 3}
+ Resolvant of {1, -2} and {-3, -1} on literal 1: {-3, -2}
+ Resolvant of {2, 3} and {-3, -1} on literal 3: {2, -1}
+
+Resolution Round 2:
+ Resolvant of {1, -2} and {2, 3} on literal -2: {1, 3}
+ Resolvant of {1, -2} and {2, -1} on literal 1: {2, -2}
+ Resolvant of {1, -2} and {2, -1} on literal -2: {1, -1}
+ Resolvant of {1, -2} and {-3, -1} on literal 1: {-3, -2}
+ Resolvant of {2, 3} and {-3, -2} on literal 2: {3, -3}
+ Resolvant of {2, 3} and {-3, -2} on literal 3: {2, -2}
+ Resolvant of {2, 3} and {-3, -1} on literal 3: {2, -1}
+ Resolvant of {1, 3} and {2, -1} on literal 1: {2, 3}
+ Resolvant of {1, 3} and {-3, -2} on literal 3: {1, -2}
+ Resolvant of {1, 3} and {-3, -1} on literal 1: {3, -3}
+ Resolvant of {1, 3} and {-3, -1} on literal 3: {1, -1}
+ Resolvant of {2, -1} and {-3, -2} on literal 2: {-3, -1}
+
+Resolution Round 3:
+ Resolvant of {1, -2} and {2, 3} on literal -2: {1, 3}
+ Resolvant of {1, -2} and {1, -1} on literal 1: {-2}
+ Resolvant of {1, -2} and {2, -1} on literal 1: {2, -2}
+ Resolvant of {1, -2} and {2, -1} on literal -2: {1, -1}
+ Resolvant of {1, -2} and {-3, -1} on literal 1: {-3, -2}
+ Resolvant of {1, -2} and {2, -2} on literal -2: {1}
+ Resolvant of {2, 3} and {3, -3} on literal 3: {2}
+ Resolvant of {2, 3} and {-3, -2} on literal 2: {3, -3}
+ Resolvant of {2, 3} and {-3, -2} on literal 3: {2, -2}
+ Resolvant of {2, 3} and {-3, -1} on literal 3: {2, -1}
+ Resolvant of {2, 3} and {2, -2} on literal 2: {3}
+ Resolvant of {1, -1} and {2, -1} on literal 1: {2}
+ Resolvant of {1, -1} and {-3, -1} on literal 1: {-3}
+ Resolvant of {1, -1} and {1, 3} on literal -1: {3}
+ Resolvant of {3, -3} and {-3, -2} on literal 3: {-2}
+ Resolvant of {3, -3} and {-3, -1} on literal 3: {-1}
+ Resolvant of {3, -3} and {1, 3} on literal -3: {1}
+ Resolvant of {2, -1} and {-3, -2} on literal 2: {-3, -1}
+ Resolvant of {2, -1} and {2, -2} on literal 2: {-1}
+ Resolvant of {2, -1} and {1, 3} on literal -1: {2, 3}
+ Resolvant of {-3, -2} and {2, -2} on literal -2: {-3}
+ Resolvant of {-3, -2} and {1, 3} on literal -3: {1, -2}
+ Resolvant of {-3, -1} and {1, 3} on literal -3: {1, -1}
+ Resolvant of {-3, -1} and {1, 3} on literal -1: {3, -3}
+
+Resolution Round 4:
+ Resolvant of {2, 3} and {2, -2} on literal 2: {3}
+ Resolvant of {2, 3} and {1, -2} on literal 2: {1, 3}
+ Resolvant of {2, 3} and {3, -3} on literal 3: {2}
+ Resolvant of {2, 3} and {-3} on literal 3: {2}
+ Resolvant of {2, 3} and {-3, -2} on literal 2: {3, -3}
+ Resolvant of {2, 3} and {-3, -2} on literal 3: {2, -2}
+ Resolvant of {2, 3} and {-3, -1} on literal 3: {2, -1}
+ Resolvant of {2, 3} and {-2} on literal 2: {3}
+ Resolvant of {1} and {2, -1} on literal 1: {2}
+ Resolvant of {1} and {1, -1} on literal 1: set()
+Derived empty clause. CNF is UNSAT.
+
+=== Detailed DP Example ===
+Formula: (¬x2 ∨ x1) ∧ (x2 ∨ x3) ∧ (¬x3 ∨ ¬x1)
+Eliminate variable x1
+ Current CNF: (¬x2 ∨ x1) ∧ (x2 ∨ x3) ∧ (¬x3 ∨ ¬x1)
+  Resolvent of {1, -2} & {-3, -1}: {-3, -2}
+  Eliminate variable x2
+   Current CNF: (x2 ∨ x3) ∧ (¬x3 ∨ ¬x2)
+    Resolvent of {2, 3} & {-3, -2}: {3, -3}
+    Eliminate variable x3
+     Current CNF: (¬x3 ∨ x3)
+      Resolvent of {3, -3} & {3, -3}: set()
+      Found empty clause — CNF is UNSAT.
+Result: UNSAT
+
+=== Detailed DPLL Example ===
+Formula: (¬x2 ∨ x1) ∧ (x2 ∨ x3) ∧ (¬x3 ∨ ¬x1)
+Initial CNF: (¬x2 ∨ x1) ∧ (x2 ∨ x3) ∧ (¬x3 ∨ ¬x1)
+Branch on x1 = True/False
+Try x1=T
+  Unit propagate x3=F
+  Unit propagate x2=T
+  All clauses satisfied — CNF is SAT.
+Result: SAT
+
+=== Quick Tests ===
+
+Tautology SAT ((¬x1 ∨ x1)):
+  Resolution → SAT
+  DP �� UNSAT
+  DPLL → SAT
+
+Contradiction UNSAT ((x1) ∧ (¬x1)):
+  Resolution → UNSAT
+  DP → UNSAT
+  DPLL → UNSAT
+
+Parity(2) SAT ((x1 ∨ x2) ∧ (¬x2 ∨ ¬x1)):
+  Resolution �� UNSAT
+  DP → UNSAT
+  DPLL → SAT
+
+Parity(2) UNSAT ((x1 ∨ x2) ∧ (¬x2 ∨ ¬x1) ∧ (¬x2 ∨ x1)):
+  Resolution → UNSAT
+  DP → UNSAT
+  DPLL → SAT
+
